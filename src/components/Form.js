@@ -10,7 +10,7 @@ const [fontsLoaded] = useFonts({
   DMSans: require("../../assets/fonts/DM_Sans/DMSans-Regular.ttf")
 });
 
-if(!fontsLoaded) return null;
+// if(!fontsLoaded) return null;
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -99,6 +99,8 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     position: 'absolute',
+    justifyContent:"center",
+    top:0,
     zIndex: -1,
   },
   logo:{
@@ -115,7 +117,7 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     width: '100%',
     height:450,
-    marginTop: -20,
+    marginTop: -40,
     backgroundColor:'#ffff',
     padding: 20,
     borderRadius: 10,
