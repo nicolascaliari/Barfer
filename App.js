@@ -5,6 +5,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import { Contacto } from "./src/pages/Contacto";
 import { Acercade } from "./src/pages/Acercade";
+import HomePage from "./src/pages/HomePage";
 import Form from "./src/components/Form"
 
 const Menu = createDrawerNavigator();
@@ -30,7 +31,7 @@ export default function App() {
         component={Form}
       />
       <Menu.Screen name="Contacto" component={Contacto} />
-      <Menu.Screen name="Acercade" component={Acercade} />
+      <Menu.Screen name="Inicio" component={HomePage} />
     </Menu.Navigator>
   </NavigationContainer>
   );
