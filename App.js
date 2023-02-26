@@ -30,8 +30,34 @@ export default function App() {
         }}
         component={Form}
       />
-      <Menu.Screen name="Contacto" component={Contacto} />
-      <Menu.Screen name="Inicio" component={HomePage} />
+      <Menu.Screen name="Contacto" 
+       options={{
+        headerTitleAlign: 'center',
+        headerTitle: () => (
+          <Image
+            style={{ width:120, height: 50 }}
+            source={require('./LogoAzul.png')}
+          />
+        ),
+        headerStyle: {
+          backgroundColor: 'white',  // Puedes cambiar el color de fondo aquí
+        },
+    }}
+      
+      component={Contacto} />
+      <Menu.Screen name="HomePage"
+       options={{
+        headerTitleAlign: 'center',
+        headerTitle: () => (
+          <Image
+            style={{ width:120, height: 50 }}
+            source={require('./LogoAzul.png')}
+          />
+        ),
+        headerStyle: {
+          backgroundColor: 'white',  // Puedes cambiar el color de fondo aquí
+        },
+    }} component={HomePage} />
     </Menu.Navigator>
   </NavigationContainer>
   );

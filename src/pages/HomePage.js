@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TextInput } from "react-native";
+import { View, Text, StyleSheet, TextInput , ScrollView} from "react-native";
 import Comida from "../components/Comida"
 
 const Options = ({ onSelectOption }) => {
@@ -64,6 +64,7 @@ const Menu = () => {
   const [searchText, setSearchText] = useState("");
 
   return (
+    <ScrollView>
     <View style={styles.container}>
       <View style={styles.searchContainer}>
         <TextInput
@@ -78,6 +79,7 @@ const Menu = () => {
         {renderOptionComponent()}
       </View>
     </View>
+    </ScrollView>
   );
 };
 
@@ -89,7 +91,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   titulo: {
-    marginBottom: 140,
+    marginTop:50,
     fontSize: 20,
     fontWeight: "bold",
   },
