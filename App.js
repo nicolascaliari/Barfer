@@ -23,6 +23,7 @@ export default function App() {
                 style={{ width:120, height: 50 }}
                 source={require('./LogoAzul.png')}
               />
+              
             ),
             headerStyle: {
               backgroundColor: 'white',  // Puedes cambiar el color de fondo aquí

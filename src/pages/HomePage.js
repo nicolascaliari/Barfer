@@ -5,10 +5,6 @@ import Comida from "../components/Comida"
 const Options = ({ onSelectOption }) => {
   return (
     <View style={styles.container}>
-      <View>
-        <Text style={styles.titulo}>Que producto estas buscando?</Text>
-      </View>
-
       <View style={styles.optionsContainer}>
         <Text style={styles.option} onPress={() => onSelectOption("comida")}>
           Comida
@@ -66,6 +62,9 @@ const Menu = () => {
   return (
     <ScrollView>
     <View style={styles.container}>
+    <View>
+        <Text style={styles.titulo}>Que producto estas buscando?</Text>
+      </View>
       <View style={styles.searchContainer}>
         <TextInput
           style={styles.searchInput}

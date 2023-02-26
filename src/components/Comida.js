@@ -2,6 +2,8 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
+import { FontAwesome } from "react-native-vector-icons";
+
 
 const productImage = require("../../comida.png");
 const products = [
@@ -37,6 +39,9 @@ const products = [
   },
 ];
 
+
+
+
 const ProductSquare = ({ product, onPress }) => {
   const { imageUri, title, price } = product;
 
@@ -50,6 +55,7 @@ const ProductSquare = ({ product, onPress }) => {
       <TouchableOpacity onPress={onPress} style={styles.buttonContainer}>
         <Text style={styles.buttonText}>Agregar al carrito</Text>
       </TouchableOpacity>
+
     </View>
   );
 };
@@ -66,8 +72,8 @@ const ProductSquareCat = ({ product, onPress }) => {
       </TouchableOpacity>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.price}>Precio: {price}</Text>
-      <TouchableOpacity onPress={onPress} style={styles.buttonContainer}>
-        <Text style={styles.buttonText}>Agregar al carrito</Text>
+      <TouchableOpacity onPress={() => addToCart(item)}>
+        <Text style={styles.addToCartButton}>Agregar al carrito</Text>
       </TouchableOpacity>
     </View>
   );
@@ -81,41 +87,46 @@ const ProductsList = ({ products }) => {
     setCartItems((prevItems) => [...prevItems, product]);
   };
 
+
+
   return (
     <View style={styles.container}>
-   
-   <Text style={styles.txt_perro}>Comida para perro</Text>
-        <FlatList style={styles.list}
-          data={products}
-          keyExtractor={(product) => product.id.toString()}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.listContainer}
-          renderItem={({ item }) => (
-            <ProductSquare
-              product={item}
-              onPress={() => handleAddToCart(item)}
-            />
-          )}
-        />
 
-        <Text style={styles.txt_gato}>Comida para gato</Text>
-        <FlatList style={styles.list}
-          data={products}
-          keyExtractor={(product) => product.id.toString()}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={styles.listContainer}
-          renderItem={({ item }) => (
-            <ProductSquareCat
-              product={item}
-              onPress={() => handleAddToCart(item)}
-            />
-          )}
-        />
+      <Text style={styles.txt_perro}>Comida para perro</Text>
+      <FlatList style={styles.list}
+        data={products}
+        keyExtractor={(product) => product.id.toString()}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.listContainer}
+        renderItem={({ item }) => (
+          <ProductSquare
+            product={item}
+            onPress={() => handleAddToCart(item)}
+          />
+        )}
+      />
+
+      <Text style={styles.txt_gato}>Comida para gato</Text>
+      <FlatList style={styles.list}
+        data={products}
+        keyExtractor={(product) => product.id.toString()}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={styles.listContainer}
+        renderItem={({ item }) => (
+          <ProductSquareCat
+            product={item}
+            onPress={() => handleAddToCart(item)}
+          />
+        )}
+      />
       <View style={styles.cartContainer}>
-        <Text style={styles.cartText}>Carrito: {cartItems.length} productos</Text>
+        <FontAwesome name="shopping-cart" size={30} color="black" />
+        <Text style={styles.cartText}>{cartItems.length}</Text>
       </View>
+
+
     </View>
   );
 };
@@ -127,22 +138,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  txt_perro:{
-    marginRight:200,
-    fontSize:15,
-    fontWeight:"600",
+  cartContainer:{
+    display:"flex",
+    flexDirection:"row",
+    position:"relative",
+    bottom:800,
+    left:150,
   },
-  txt_gato:{
-    marginRight:200,
-    fontSize:15,
-    fontWeight:"600",
+  cartText:{
+    padding:5
   },
-  list:{
-    padding:10,
-    margin:10
+  txt_perro: {
+    marginRight: 200,
+    fontSize: 15,
+    fontWeight: "600",
+  },
+  txt_gato: {
+    marginRight: 200,
+    fontSize: 15,
+    fontWeight: "600",
+  },
+  list: {
+    padding: 10,
+    margin: 10
   },
   listContainer: {
-    paddingHorizontal:0 ,
+    paddingHorizontal: 0,
   },
   square: {
     width: 170,
