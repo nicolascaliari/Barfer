@@ -1,8 +1,9 @@
 
 import React from 'react';
-import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Button,Image, FlatList, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
 import { FontAwesome } from "react-native-vector-icons";
+import Carrito from './Carrito';
 
 
 const productImage = require("../../comida.png");
@@ -47,9 +48,7 @@ const ProductSquare = ({ product, onPress }) => {
 
   return (
     <View style={styles.square}>
-      <TouchableOpacity onPress={onPress} style={styles.imageContainer}>
         <Image source={imageUri} style={styles.image} />
-      </TouchableOpacity>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.price}>Precio: {price}</Text>
       <TouchableOpacity onPress={onPress} style={styles.buttonContainer}>
@@ -72,8 +71,8 @@ const ProductSquareCat = ({ product, onPress }) => {
       </TouchableOpacity>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.price}>Precio: {price}</Text>
-      <TouchableOpacity onPress={() => addToCart(item)}>
-        <Text style={styles.addToCartButton}>Agregar al carrito</Text>
+      <TouchableOpacity onPress={onPress} style={styles.buttonContainer}>
+        <Text style={styles.buttonText}>Agregar al carrito</Text>
       </TouchableOpacity>
     </View>
   );
@@ -81,11 +80,21 @@ const ProductSquareCat = ({ product, onPress }) => {
 
 
 const ProductsList = ({ products }) => {
-  const [cartItems, setCartItems] = useState([]);
 
-  const handleAddToCart = (product) => {
-    setCartItems((prevItems) => [...prevItems, product]);
-  };
+const [carrito, setCarrito] = useState([]);
+
+const agregarAlCarrito = (producto) => {
+  setCarrito([...carrito, producto]);
+}
+
+
+const openCart = (productos) => {
+
+ <Carrito productos={carrito} ></Carrito>
+  // Aquí es donde puedes mostrar un componente que muestre los productos en el carrito
+  console.log(carrito);
+};
+
 
 
 
@@ -102,13 +111,13 @@ const ProductsList = ({ products }) => {
         renderItem={({ item }) => (
           <ProductSquare
             product={item}
-            onPress={() => handleAddToCart(item)}
+            onPress={() => agregarAlCarrito(item)}
           />
         )}
       />
 
-      <Text style={styles.txt_gato}>Comida para gato</Text>
-      <FlatList style={styles.list}
+       <Text style={styles.txt_gato}>Comida para gato</Text>
+       <FlatList style={styles.list}
         data={products}
         keyExtractor={(product) => product.id.toString()}
         horizontal
@@ -117,17 +126,39 @@ const ProductsList = ({ products }) => {
         renderItem={({ item }) => (
           <ProductSquareCat
             product={item}
-            onPress={() => handleAddToCart(item)}
+            onPress={() => agregarAlCarrito(item)} 
           />
         )}
       />
-      <View style={styles.cartContainer}>
+      <View>
+         <TouchableOpacity style={styles.cartContainer}
+        onPress={openCart}>
         <FontAwesome name="shopping-cart" size={30} color="black" />
-        <Text style={styles.cartText}>{cartItems.length}</Text>
+        <Text style={styles.cartText}>{carrito.length}</Text>
+        </TouchableOpacity>
       </View>
+        
+
+<View style={styles.carrito}>
+<Button title="Ver Carrito" onPress={() => console.log(carrito)} />
+</View>
 
 
-    </View>
+{/* <View style={styles.container}>
+<View style={styles.carrito}>
+  <Button title="Ver Carrito" onPress={() => console.log(carrito)} />
+</View> */}
+{/* {products.map((producto) => (
+  <View key={producto.id} style={styles.producto}>
+    <Text style={styles.nombre}>{producto.nombre}</Text>
+    <Text style={styles.precio}>{producto.precio} €</Text>
+    <Button title="Agregar al carrito" onPress={() => agregarAlCarrito(producto)} />
+  </View>
+))} */}
+
+</View>
+
+ 
   );
 };
 
@@ -203,6 +234,75 @@ export default function App() {
 }
 
 
+// import React, { useState } from 'react';
+// import { View, Text, Button, StyleSheet } from 'react-native';
+
+// const Productos = () => {
+
+//   const [carrito, setCarrito] = useState([]);
+
+//   const productos = [
+//     {
+//       id: 1,
+//       nombre: 'Producto 1',
+//       precio: 10
+//     },
+//     {
+//       id: 2,
+//       nombre: 'Producto 2',
+//       precio: 20
+//     },
+//     {
+//       id: 3,
+//       nombre: 'Producto 3',
+//       precio: 30
+//     }
+//   ];
+
+//   const agregarAlCarrito = (producto) => {
+//     setCarrito([...carrito, producto]);
+//   }
+
+//   return (
+//     <View style={styles.container}>
+//       <View style={styles.carrito}>
+//         <Button title="Ver Carrito" onPress={() => console.log(carrito)} />
+//       </View>
+//       {productos.map((producto) => (
+//         <View key={producto.id} style={styles.producto}>
+//           <Text style={styles.nombre}>{producto.nombre}</Text>
+//           <Text style={styles.precio}>{producto.precio} €</Text>
+//           <Button title="Agregar al carrito" onPress={() => agregarAlCarrito(producto)} />
+//         </View>
+//       ))}
+//     </View>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     padding: 20,
+//   },
+//   carrito: {
+//     marginBottom: 10,
+//   },
+//   producto: {
+//     marginBottom: 20,
+//   },
+//   nombre: {
+//     fontSize: 18,
+//     fontWeight: 'bold',
+//     marginBottom: 5,
+//   },
+//   precio: {
+//     fontSize: 16,
+//     color: 'gray',
+//     marginBottom: 5,
+//   },
+// });
+
+// export default Productos;
 
 
 

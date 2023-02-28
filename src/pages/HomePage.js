@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, TextInput , ScrollView} from "react-native";
 import Comida from "../components/Comida"
+import Calculadora from "../components/Calculadora";
+import Complementos from "../components/Complementos";
+import Reparto from "../components/Reparto"
 
 const Options = ({ onSelectOption }) => {
   return (
@@ -51,7 +54,7 @@ const Menu = () => {
       case "calculadora":
         return <Calculadora />;
       case "repartos":
-        return <Repartos />;
+        return <Reparto />;
       default:
         return null;
     }
