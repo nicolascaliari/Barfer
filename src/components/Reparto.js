@@ -40,7 +40,7 @@ const Reparto = () => {
   return (
     <View style={styles.contenedor_father}>
       <View style={styles.contenedor}>
-        <Text style={styles.tittle}>Repardo Barfer</Text>
+        <Text style={styles.tittle}>Reparto Barfer</Text>
         <View style={styles.container_map}>
           <WebView
             source={{
