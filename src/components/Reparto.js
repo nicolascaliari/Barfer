@@ -3,7 +3,40 @@ import { View, Text } from "react-native";
 import { WebView } from "react-native-webview";
 import { StyleSheet } from "react-native";
 
+const coloresFondo = {
+  "JUEVES DE 14 A 21HS": "#D9D9D9",
+  "SABADOS DE 10 A 17HS": "#D9D9D9",
+  "MIERCOLES DE 15 A 20HS": "#D9D9D9",
+  "LUNES DE 14 A 21HS": "#D9D9D9",
+  "MIERCOLES DE 14 A 21HS": "#D9D9D9",
+  "LUNES DE 14 A 21HS ": "#D9D9D9",
+  "SABADOS DE 10 A 16": "#D9D9D9",
+  "MARTES DE 14 A 20": "#D9D9D9",
+};
+
+const coloresHorarios = {
+  "JUEVES DE 14 A 21HS": "#FDAB1F",
+  "SABADOS DE 10 A 17HS": "#004C97",
+  "MIERCOLES DE 15 A 20HS": "#32A764",
+  "LUNES DE 14 A 21HS": "#D08DD4",
+  "MIERCOLES DE 14 A 21HS": "#FFFF8D",
+  "LUNES DE 14 A 21HS ": "#B1ECF4",
+  "SABADOS DE 10 A 16": "#98BEFA",
+  "MARTES DE 14 A 20": "#FF1D4F",
+};
+
 const Reparto = () => {
+  const horarios = [
+    "JUEVES DE 14 A 21HS",
+    "SABADOS DE 10 A 17HS",
+    "MIERCOLES DE 15 A 20HS",
+    "LUNES DE 14 A 21HS",
+    "MIERCOLES DE 14 A 21HS",
+    "LUNES DE 14 A 21HS ",
+    "SABADOS DE 10 A 16",
+    "MARTES DE 14 A 20",
+  ];
+
   return (
     <View style={styles.contenedor_father}>
       <View style={styles.contenedor}>
@@ -16,26 +49,23 @@ const Reparto = () => {
             style={{ flex: 1 }}
           />
         </View>
-        <View style={styles.horarios_bg}>
-          <View style={styles.horarios_color}></View>
-          <Text style={styles.text_horarios}>JUEVES DE 14 A 21HS</Text>
-        </View>
-        <View style={styles.horarios_bg}>
-          <View style={styles.horarios_color}></View>
-          <Text style={styles.text_horarios}>SABADOS DE 10 A 17HS</Text>
-        </View>
-        <View style={styles.horarios_bg}>
-          <View style={styles.horarios_color}></View>
-          <Text style={styles.text_horarios}>MIERCOLES DE 15 A 20HS</Text>
-        </View>
-        <View style={styles.horarios_bg}>
-          <View style={styles.horarios_color}></View>
-          <Text style={styles.text_horarios}>LUNES DE 14 A 21HS</Text>
-        </View>
-        <View style={styles.horarios_bg}>
-          <View style={styles.horarios_color}></View>
-          <Text style={styles.text_horarios}>MIERCOLES DE 14 A 21HS</Text>
-        </View>
+        {horarios.map((horario) => (
+          <View
+            key={horario}
+            style={[
+              styles.horarios_bg,
+              { backgroundColor: coloresFondo[horario] },
+            ]}
+          >
+            <View
+              style={[
+                styles.horarios_color,
+                { backgroundColor: coloresHorarios[horario] },
+              ]}
+            ></View>
+            <Text style={styles.text_horarios}>{horario}</Text>
+          </View>
+        ))}
       </View>
     </View>
   );
@@ -49,7 +79,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     backgroundColor: "#f2f2f2",
-    height: 800,
+    height: 920,
   },
   contenedor: {
     flex: 1,
@@ -107,7 +137,7 @@ const styles = StyleSheet.create({
     shadowRadius: 14,
     elevation: -2,
     overflow: "hidden",
-    marginBottom: 15,
+    marginBottom: 12.5,
   },
 
   //CORREGIR CODIGO SEA MAS LEGIBLE.
