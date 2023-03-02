@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
 
-  //CORREGIR CODIGO SEA MAS LEGIBLE..
+  //CORREGIR CODIGO SEA MAS LEGIBLE.
   horarios_color: {
     alignItems: "flex-start",
     justifyContent: "flex-start",

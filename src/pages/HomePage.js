@@ -80,6 +80,7 @@ const Menu = () => {
       <View style={styles.optionComponentContainer}>
         {renderOptionComponent()}
       </View>
+
     </View>
     </ScrollView>
   );
