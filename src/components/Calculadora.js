@@ -40,10 +40,8 @@ const Calculadora = () => {
           >
             <Text
               style={[
-                styles.buttonText,
-                animalType === "perro" && styles.activeButtonText,
-              ]}
-            >
+                styles.buttonTextDog,
+                animalType === "perro" && styles.activeButtonText,]}>
               Perro
             </Text>
           </TouchableOpacity>
@@ -117,7 +115,7 @@ const Calculadora = () => {
             >
               <Text
                 style={[
-                  styles.buttonText,
+                  styles.buttonTextCachorro,
                   breedType === "cachorro" && styles.activeButtonText,
                 ]}
               >
@@ -219,7 +217,7 @@ const styles = StyleSheet.create({
   contenedor_father: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "flex-start",
+    justifyContent:"center",
     backgroundColor: "#f2f2f2",
     height: "100%",
   },
@@ -277,16 +275,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 61,
     textAlign: "center",
-    width: 140,
+    width: 160,
     position: "absolute",
-    right: 160,
+    right: 130,
   },
   button1: {
     backgroundColor: "#D9D9D9",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 61,
-    textAlign: "center",
+    textAlign:"left",
     width: 140,
     textAlign: "center",
     position: "relative",
@@ -325,6 +323,18 @@ const styles = StyleSheet.create({
     textAlign: "center",
     width: 140,
   },
+  buttonTextDog:{
+    color: "#ffffff",
+    fontWeight: "bold",
+    textAlign:"left",
+    fontSize: 18,
+  },
+  buttonTextCachorro:{
+    color: "#ffffff",
+    fontWeight: "bold",
+    textAlign:"left",
+    fontSize: 18,
+  }
 });
 
 export default Calculadora;

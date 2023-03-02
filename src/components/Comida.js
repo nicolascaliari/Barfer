@@ -39,18 +39,15 @@ function Comida() {
   };
 
   const renderItem = ({ item }) => (
+    <View style={styles.item}>
+      <Image source={item.imageUri} style={styles.image} />
+      <Text style={styles.title}>{item.name}</Text>
+      <Text style={styles.price}>${item.price}</Text>
 
-    <View style={styles.item_row}>
-      <View style={styles.item}>
-        <Image source={item.imageUri} style={styles.image} />
-        <Text style={styles.title}>{item.name}</Text>
-        <Text style={styles.price}>${item.price}</Text>
-
-        <View style={styles.contenedor_boton}>
-          <TouchableOpacity style={styles.addButton} onPress={() => addToCart(item)}>
-            <FontAwesome name="shopping-cart" size={20} color="black" />
-          </TouchableOpacity>
-        </View>
+      <View style={styles.contenedor_boton}>
+        <TouchableOpacity style={styles.addButton} onPress={() => addToCart(item)}>
+          <FontAwesome name="shopping-cart" size={20} color="black" />
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -65,20 +62,10 @@ function Comida() {
 
   return (
     <View style={styles.container}>
-      {/* <TouchableOpacity style={styles.cartButton} onPress={() => setShowCart(!showCart)}>
-        <Text style={styles.cartButtonText}>Cart ({cartItems.length}) - Total: {cartTotal}</Text>
-      </TouchableOpacity> */}
-
-
       <TouchableOpacity style={styles.cartButton} onPress={() => setShowCart(!showCart)}>
         <FontAwesome name="shopping-cart" size={30} color="black" />
-        <Text style={styles.cartButtonText}> Total:{cartItems.length}</Text>
+        <Text style={styles.cartButtonText}>{cartItems.length}</Text>
       </TouchableOpacity>
-
-
-
-
-
       {showCart && (
         <View style={styles.cartContainer}>
           <TouchableOpacity onPress={() => setShowCart(false)}>
@@ -131,14 +118,6 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     paddingHorizontal: 20,
   },
-  item_row: {
-    display: "flex",
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginVertical: 8,
-    marginHorizontal: 16,
-  },
   txt_dog: {
     position: "relative",
     bottom: 41,
@@ -150,15 +129,24 @@ const styles = StyleSheet.create({
     fontSize: 15
   },
   flatList_products_dog: {
+    position: "relative",
+    right: 10,
+    width: 340,
+    height: 270,
     marginBottom: 60,
     marginTop: -40
   },
   flatList_products_cat: {
-    marginBottom: 60
+    position: "relative",
+    right: 10,
+    width: 340,
+    height: 270,
+    marginBottom:60
   },
   item: {
-    width: 170,
-    height: 250,
+    width: 153,
+    height: 214,
+    marginTop: 40,
     backgroundColor: '#fff',
     borderRadius: 30,
     marginHorizontal: 10,
@@ -174,8 +162,8 @@ const styles = StyleSheet.create({
     elevation: 6,
   },
   image: {
-    width: 115,
-    height: 115,
+    width: 100,
+    height: 100,
     borderRadius: 10,
     marginBottom: 10,
   },
@@ -183,27 +171,30 @@ const styles = StyleSheet.create({
     padding: 5,
     fontSize: 17,
     textAlign: "center",
-    color:"#171717",
-    fontWeight:"700"
+    color: "#171717",
+    fontWeight: "700"
   },
   price: {
-    padding: 5,
+    padding: 15,
     fontSize: 17,
     textAlign: "center",
-    color:"#006AE3"
+    color: "#006AE3"
   },
   addButton: {
     display: "flex",
     alignItems: "flex-end",
     backgroundColor: '#D9D9D9',
-    borderRadius: "100%",
+    borderRadius: 100,
     padding: 10,
   },
-  contenedor_boton:{
-    display:"flex",
-    justifyContent:"center",
-    alignSelf:"flex-end",
-    padding:15
+  contenedor_boton: {
+    display: "flex",
+    justifyContent: "center",
+    alignSelf: "flex-end",
+    margin: 20,
+    position: "relative",
+    bottom: 21,
+    left: 1
   },
   addButtonText: {
     color: 'white',
@@ -214,8 +205,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     position: "relative",
     bottom: 240,
-    left: 190
-
+    left: 300
   },
   cartButtonText: {
 

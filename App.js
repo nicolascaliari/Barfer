@@ -4,7 +4,6 @@ import 'react-native-gesture-handler';
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import { Contacto } from "./src/pages/Contacto";
-import { Acercade } from "./src/pages/Acercade";
 import HomePage from "./src/pages/HomePage";
 import Form from "./src/components/Form"
 
