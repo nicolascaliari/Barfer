@@ -24,6 +24,96 @@ const Calculadora = () => {
     setActiveButton("adulto");
   };
 
+
+
+  const handleCalcular = () => {
+    //Porcentajes de perros cachorros
+    let porcentajesDosACuatro = 0.1;
+    let porcentajesCuatroASeis = 0.08;
+    let porcentajesSeisAOcho = 0.06;
+    let porcentajesOchoADiez = 0.04;
+    let porcentajesDiezADoce = 0.03;
+
+    //porcentajes de perros adultos
+    let porcentajeBajo = 0.02;
+    let porcentajeMedio = 0.025;
+    let porcentajeAlto = 0.03;
+
+
+    //porcentajes de gatos cachorros
+    let porcentajeDestete = 0.1;
+    let porcentaje3A4 = 0.08;
+    let porcentaje5A6 = 0.06;
+    let porcentaje7A8 = 0.06;
+    let porcentaje9A10 = 0.05;
+    let porcentaje11A12 = 0.04;
+
+    //porcentajes de gatos adultos
+    let porcentajeBajoGato = 0.03;
+    let porcentajeMedioGato = 0.035;
+    let porcentajeAltoGato1 = 0.045;
+
+
+    let calculo = 0;
+    // Condicionales y calculos para perro
+    if (animalType === "perro" && breedType === "cachorro" && selectedValue === "2-4") {
+      calculo = name * porcentajesDosACuatro;
+    } else if (animalType == "perro" && breedType === "cachorro" && selectedValue == "4-6") {
+      calculo = name * porcentajesCuatroASeis;
+    } else if (animalType == "perro" && breedType === "cachorro" && selectedValue == "6-8") {
+      calculo = name * porcentajesSeisAOcho;
+    } else if (animalType == "perro" && breedType === "cachorro" && selectedValue == "8-10") {
+      calculo = name * porcentajesOchoADiez;
+    } else if (animalType == "perro" && breedType === "cachorro" && selectedValue == "10-12") {
+      calculo = name * porcentajesDiezADoce;
+    } else {
+      if (animalType == "perro" && breedType === "adulto" && selectedValue == "baja") {
+        calculo = name * porcentajeBajo;
+      } else if (animalType == "perro" && breedType === "adulto" && selectedValue == "media") {
+        calculo = name * porcentajeMedio;
+      } else if (animalType == "perro" && breedType === "adulto" && selectedValue == "alta") {
+        calculo = name * porcentajeAlto;
+      }else{
+        calculo = 20;
+      }
+
+    }
+
+    //Condicionales y calculos para gato:
+
+    if (animalType == "gato" && breedType === "cachorro" && selectedValue == "Destete") {
+      calculo = name * porcentajeDestete;
+    } else if (animalType == "gato" && breedType === "cachorro" && selectedValue == "3-4") {
+      calculo = name * porcentaje3A4;
+    } else if (animalType == "gato" && breedType === "cachorro" && selectedValue == "5-6") {
+      calculo = name * porcentaje5A6;
+    } else if (animalType == "gato" && breedType === "cachorro" && selectedValue == "7-8") {
+      calculo = name * porcentaje7A8;
+    } else if (animalType == "gato" && breedType === "cachorro" && selectedValue == "9-10") {
+      calculo = name * porcentaje9A10;
+    } else if (animalType == "gato" && breedType === "cachorro" && selectedValue == "11-12") {
+      calculo = name * porcentaje11A12;
+    }else{
+      if (animalType === "gato" && breedType === "adulto" && selectedValue == "baja") {
+        calculo = name * porcentajeBajoGato;
+      } else if (animalType === "gato" && breedType === "adulto" && selectedValue == "media") {
+        calculo = name * porcentajeMedioGato;
+      } else if (animalType === "gato" && breedType === "adulto" && selectedValue == "alta") {
+        calculo = name * porcentajeAltoGato1;
+      }
+    }
+
+
+    if(calculo < 1 ) {
+      precioFinal = `${calculo * 1000} gramos`;
+    }else {
+      precioFinal = `${calculo.toFixed(1)} kilos`;
+    }
+    alert(precioFinal)
+
+  }
+
+
   return (
     <View style={styles.contenedor_father}>
       <View style={styles.contenedor}>
@@ -142,7 +232,7 @@ const Calculadora = () => {
           </View>
         )}
 
-        {breedType === "cachorro" && (
+        {breedType === "cachorro" && animalType === "perro" && (
           <View style={styles.row_picker}>
             <View style={styles.container}>
               <Picker
@@ -156,16 +246,47 @@ const Calculadora = () => {
                   setSelectedValue(itemValue)
                 }
               >
-                <Picker.Item label="Destete-2 Meses" value="java" />
-                <Picker.Item label="3 - 4 Meses" value="js" />
-                <Picker.Item label="5 - 6 Meses" value="java" />
-                <Picker.Item label="7 - 8 Meses" value="js" />
-                <Picker.Item label="9 - 10 Meses" value="java" />
-                <Picker.Item label="11 - 12 Meses" value="js" />
+                <Picker.Item label="2 - 4" value="2-4" />
+                <Picker.Item label="4 - 6 Meses" value="4-6" />
+                <Picker.Item label="6 - 8 Meses" value="6-8" />
+                <Picker.Item label="8 - 10 Meses" value="8-10" />
+                <Picker.Item label="10 - 12 Meses" value="10-12" />
               </Picker>
             </View>
           </View>
         )}
+        {/* Cachorro para gato: */}
+
+        {breedType === "cachorro" && animalType === "gato" && (
+          <View style={styles.row_picker}>
+            <View style={styles.container}>
+              <Picker
+                selectedValue={selectedValue}
+                style={{
+                  height: 50,
+                  width: 200,
+                  borderRadius: 50,
+                }}
+                onValueChange={(itemValue, itemIndex) =>
+                  setSelectedValue(itemValue)
+                }
+              >
+                <Picker.Item label="Destete-2 Meses" value="deteste" />
+                <Picker.Item label="3 - 4 Meses" value="3-4" />
+                <Picker.Item label="5 - 6 Meses" value="5-6" />
+                <Picker.Item label="7 - 8 Meses" value="7-8" />
+                <Picker.Item label="9 - 10 Meses" value="9-10" />
+                <Picker.Item label="11 - 12 Meses" value="11-12" />
+              </Picker>
+            </View>
+          </View>
+        )}
+
+
+
+
+
+
 
         {breedType === "adulto" && (
           <View style={styles.row_picker}>
@@ -177,9 +298,9 @@ const Calculadora = () => {
                   setSelectedValue(itemValue)
                 }
               >
-                <Picker.Item label="Actividad Baja" value="java" />
-                <Picker.Item label="Actividad Media" value="js" />
-                <Picker.Item label="Actividad Alta" value="java" />
+                <Picker.Item label="Actividad Baja" value="baja" />
+                <Picker.Item label="Actividad Media" value="media" />
+                <Picker.Item label="Actividad Alta" value="alta" />
               </Picker>
             </View>
           </View>
@@ -205,7 +326,7 @@ const Calculadora = () => {
             style={styles.calcular}
             onPress={() => handleBreedTypePress("cachorro")}
           >
-            <Text style={styles.buttonText}>Calcular</Text>
+            <Text style={styles.buttonText} onPress={handleCalcular}>Calcular</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -217,7 +338,7 @@ const styles = StyleSheet.create({
   contenedor_father: {
     flex: 1,
     alignItems: "center",
-    justifyContent:"center",
+    justifyContent: "center",
     backgroundColor: "#f2f2f2",
     height: "100%",
   },
@@ -284,14 +405,14 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 61,
-    textAlign:"left",
+    textAlign: "left",
     width: 140,
     textAlign: "center",
     position: "relative",
     left: 60,
   },
   contenedor_input: {
-    marginTop: 20,
+    marginTop:90,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -323,16 +444,16 @@ const styles = StyleSheet.create({
     textAlign: "center",
     width: 140,
   },
-  buttonTextDog:{
+  buttonTextDog: {
     color: "#ffffff",
     fontWeight: "bold",
-    textAlign:"left",
+    textAlign: "left",
     fontSize: 18,
   },
-  buttonTextCachorro:{
+  buttonTextCachorro: {
     color: "#ffffff",
     fontWeight: "bold",
-    textAlign:"left",
+    textAlign: "left",
     fontSize: 18,
   }
 });
