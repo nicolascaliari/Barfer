@@ -12,9 +12,6 @@ const Options = ({ onSelectOption }) => {
         <Text style={styles.option} onPress={() => onSelectOption("comida")}>
           Comida
         </Text>
-        <Text style={styles.option} onPress={() => onSelectOption("complementos")}>
-          Complementos
-        </Text>
         <Text style={styles.option} onPress={() => onSelectOption("calculadora")}>
           Calculadora
         </Text>
@@ -43,14 +40,12 @@ const Options = ({ onSelectOption }) => {
 // };
 
 const Menu = () => {
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedOption, setSelectedOption] = useState("comida");
 
   const renderOptionComponent = () => {
     switch (selectedOption) {
       case "comida":
         return <Comida />;
-      case "complementos":
-        return <Complementos />;
       case "calculadora":
         return <Calculadora />;
       case "repartos":
@@ -108,6 +103,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     paddingVertical: 10,
     margin: 10,
+    padding:10
   },
   optionComponentContainer: {
     flex: 1,
