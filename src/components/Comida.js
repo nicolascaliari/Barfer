@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList, Image } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { FontAwesome } from "react-native-vector-icons";
 const productImage = require("../../comida.png");
 const PRODUCTS = [
@@ -52,7 +51,7 @@ const ProductItem = ({ product, onPress }) => {
 
 
       <View style={styles.contenedor_boton}>
-        <TouchableOpacity style={styles.addButton} onPress={() => onPress(product , selectedKilo)}>
+        <TouchableOpacity style={styles.addButton} onPress={() => onPress(product, selectedKilo)}>
           <FontAwesome name="shopping-cart" size={20} color="black" />
         </TouchableOpacity>
       </View>
@@ -60,13 +59,6 @@ const ProductItem = ({ product, onPress }) => {
   );
 };
 
-// const CartItem = ({ item }) => (
-//   <View style={styles.cartItem}>
-//     <Text style={styles.cartItemName}>{item.name}</Text>
-//     <Text style={styles.cartItemPrice}>{item.price} € / kg</Text>
-//     <Text style={styles.cartItemQuantity}>Cantidad: {item.quantity} {item.kilo}</Text>
-//   </View>
-// );
 
 const Comida = () => {
   const [showCart, setShowCart] = useState(false);
@@ -87,6 +79,7 @@ const Comida = () => {
         ...prevCartItems,
         {
           id: product.id,
+          imageUri: product.imageUri,
           name: product.name,
           price: kilo === product.kilo1 ? product.price : product.priceDos,
           quantity: 1,
@@ -96,10 +89,13 @@ const Comida = () => {
     }
   };
 
+
+  //remueve todo los productos del carrito
   const handleClearCart = () => {
     setCartItems([]);
   };
 
+  //remueve un producto solo
   const removeItem = (itemId) => {
     setCartItems(cartItems.filter(item => item.id !== itemId));
   };
@@ -118,17 +114,29 @@ const Comida = () => {
           <TouchableOpacity style={styles.clearCartButton} onPress={handleClearCart}>
             <Text style={styles.clearCartButtonText}>Vaciar carrito</Text>
           </TouchableOpacity>
-          <FlatList
+          <FlatList style={styles.flat_cart}
             data={cartItems}
             renderItem={({ item }) => (
               <View style={styles.cartItem}>
                 <Image source={item.imageUri} style={styles.cartItemImage} />
                 <View style={styles.cartItemDetails}>
-                  <Text>{item.name}</Text>
+                  <Text style={styles.titulo}>{item.name}</Text>
                   <View style={styles.contenedor_cantidad_precio}>
+
                   
-                  <Text>Precio: {item.price}</Text>
-                  <Text>Cantidad: {item.quantity}</Text>
+                    <Text style={styles.cantidad}>
+                      <Text style={styles.etiqueta_cantidad}>Cantidad: </Text>
+                      <Text style={styles.valor_cantidad}>{item.quantity}</Text>
+                    </Text>
+
+                    <Text style={styles.precio}>
+                      <Text style={styles.etiqueta}>Precio: </Text>
+                      <Text style={styles.valor}>{item.price}</Text>
+                    </Text>
+
+
+
+
                   </View>
                 </View>
                 <TouchableOpacity style={styles.removeButton} onPress={() => removeItem(item.id)}>
@@ -136,33 +144,43 @@ const Comida = () => {
                 </TouchableOpacity>
               </View>
             )}
-
+            keyExtractor={item => item.id.toString()}
           />
+
+                <Text style={styles.checkoutButtonTotal}>
+                <Text style={styles.etiqueta_total}>Total: </Text>
+                <Text style={styles.valor_total}>{`${cartItems.reduce((total, item) => total + item.price * item.quantity, 0)} $`}</Text>
+                </Text>
+
+
+
+          <View style={styles.btn_comprar}>
           <TouchableOpacity style={styles.checkoutButton} onPress={() => console.log('Redirigiendo a MercadoPago')}>
-            <Text style={styles.checkoutButtonText}>Realizar compra</Text>
-            <Text style={styles.checkoutButtonTotal}>{`Total: ${cartItems.reduce((total, item) => total + item.price * item.quantity, 0)} $`}</Text>
+            <Text style={styles.checkoutButtonText}>Compra</Text>
           </TouchableOpacity>
         </View>
+        
+        </View>
       )}
-<Text style={styles.txt_flatList}>Para perro</Text>
+      <Text style={styles.txt_flatList}>Para perro</Text>
       <FlatList
-      style={styles.flatList}
+        style={styles.flatList}
         data={PRODUCTS}
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => <ProductItem product={item} onPress={handleAddToCart} />}
         horizontal
       />
-<Text style={styles.txt_flatList}>Para gato</Text>
+      <Text style={styles.txt_flatList}>Para gato</Text>
       <FlatList
-       style={styles.flatList}
+        style={styles.flatList}
         data={PRODUCTS_CAT}
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => <ProductItem product={item} onPress={handleAddToCart} />}
         horizontal
       />
-<Text style={styles.txt_flatList}>Complementos</Text>
+      <Text style={styles.txt_flatList}>Complementos</Text>
       <FlatList
-       style={styles.flatList}
+        style={styles.flatList}
         data={COMPLEMENTOS}
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => <ProductItem product={item} onPress={handleAddToCart} />}
@@ -204,7 +222,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 6,
   },
-  flatList:{
+  flatList: {
     position: "relative",
     right: 10,
     width: 340,
@@ -230,13 +248,13 @@ const styles = StyleSheet.create({
   kiloButtonsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding:10
+    padding: 10
   },
   kiloButton: {
     backgroundColor: '#D9D9D9',
     borderRadius: 8,
-    padding:7,
-    margin:10
+    padding: 7,
+    margin: 10
   },
   selectedKiloButton: {
     backgroundColor: '#3662FF',
@@ -257,7 +275,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     position: "relative",
     justifyContent: "flex-end",
-    bottom:200
+    bottom: 200
   },
   addButtonText: {
     fontSize: 14,
@@ -280,13 +298,6 @@ const styles = StyleSheet.create({
   cartBadgeText: {
     fontSize: 12,
     color: '#fff',
-  },
-  cartItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingVertical: 8,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
   },
   cartItemName: {
     fontSize: 14,
@@ -313,7 +324,7 @@ const styles = StyleSheet.create({
     fontSize: 17,
     textAlign: "center",
     color: "#006AE3",
-    fontWeight:"700"
+    fontWeight: "700"
   },
   emptyCartMessage: {
     fontSize: 16,
@@ -323,25 +334,27 @@ const styles = StyleSheet.create({
   checkoutButton: {
     position: "relative",
     bottom: 1000,
-    backgroundColor: '#00bfff',
+    backgroundColor:'#A0A0A0',
     borderRadius: 8,
-    paddingVertical: 12,
-    paddingHorizontal: 24,
+    padding:10,
+    width:140,
     marginTop: 16,
   },
   checkoutButtonText: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#3662FF',
     textAlign: 'center',
   },
   cartItem: {
     display: "flex",
     flexDirection: "row",
-    margin: 20,
+    marginTop:30,
+    marginLeft:5,
+    // margin: 20,
     backgroundColor: '#fff',
     borderRadius: 30,
-    marginHorizontal: 10,
+    // marginHorizontal: 10,
     alignItems: 'center',
     justifyContent: 'center',
     shadowColor: '#000',
@@ -352,10 +365,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.27,
     shadowRadius: 4.65,
     elevation: 6,
+    width:370,
+    height:90
   },
   contenedor_cantidad_precio: {
     display: "flex",
-    flexDirection: "colum",
+    flexDirection: "row",
     marginTop: 50,
   },
   cartItemDetails: {
@@ -363,10 +378,30 @@ const styles = StyleSheet.create({
     height: 100,
   },
   cantidad: {
-    padding: 5
+    position:"relative",
+    right:50,
+    padding: 5,
+    fontWeight: "700"
+  },
+  etiqueta_cantidad:{
+    fontSize:15
+  },
+  etiqueta:{
+    fontSize:15
   },
   precio: {
-    padding: 5
+    padding: 5,
+    fontWeight: "700"
+  },
+  titulo: {
+    textAlign: "center",
+    color: "#171717",
+    fontWeight: "700",
+    fontSize: 17,
+    position:"relative",
+    top:10,
+    right:15
+
   },
   comprar: {
     display: "flex",
@@ -391,6 +426,54 @@ const styles = StyleSheet.create({
     position: "relative",
     bottom: 1040,
     fontSize: 25,
+  },
+  valor:{
+    color:"#3662FF",
+    fontSize:15
+  },
+  valor_cantidad:{
+    backgroundColor:"#D9D9D9",
+    borderRadius: 30,
+    fontSize:15
+  },
+  cartItemImage:{
+    width: 120,
+    height: 120,
+    borderRadius: 10,
+    marginBottom: 4,
+    position:"relative",
+    right:45,
+    top:4
+  },
+  flat_cart:{
+    backgroundColor:"#E2E2E2",
+    width:380,
+    borderRadius:30,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+    elevation: 6,
+  },
+  checkoutButtonTotal:{
+    position:"relative",
+    bottom:1000,
+    left:200,
+    fontSize:20,
+    fontWeight:"700"
+  },
+  valor_total:{
+    fontSize:20,
+    color:"#3662FF",
+    fontWeight:"700"
+  },
+  btn_comprar:{
+    display:"flex",
+    justifyContent:"center",
+    alignItems:"center"
   }
 });
 
