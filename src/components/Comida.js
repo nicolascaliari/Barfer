@@ -218,22 +218,25 @@ const Comida = () => {
   const [initPoint, setInitPoint] = useState(null);
 
   const handlePayment = async () => {
-    const response = await fetch("http://192.168.1.12:3000/create_preference", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        items: [
-          {
-            title: "Compra Barfer",
-            quantity: 1,
-            currency_id: "ARS",
-            unit_price: 100,
-          },
-        ],
-      }),
-    });
+    const response = await fetch(
+      "https://mercado-pago-test-three.vercel.app/create_preference",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          items: [
+            {
+              title: "Compra Barfer",
+              quantity: 1,
+              currency_id: "ARS",
+              unit_price: 100,
+            },
+          ],
+        }),
+      }
+    );
     const preference = await response.json();
     setInitPoint(preference.init_point);
   };
